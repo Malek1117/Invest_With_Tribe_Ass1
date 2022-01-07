@@ -1,25 +1,32 @@
 import { useState, useEffect } from 'react';
 import Table from "./Table";
+import Calendar from "./Calender";
+import "./Main.css";
 
 export default function Main() {
     const [data, setData] = useState([]);
-    const [country, setCountry] = useState("")
+    const [country, setCountry] = useState("");
+    const [show, setShow] = useState(false);
+    const [range, setRange] = useState({
+        startDate: new Date(),
+        endDate: new Date(),
+        key:"selection"
+    }) ;
 
     useEffect(() =>{
         fetchData();
-    }, [country]);
+    }, [country, range]);
 
     const fetchData = async ()=>{
         fetch("https://cors-anywhere.herokuapp.com/http://gov.uk/bank-holidays.json")
         .then(res => res.json())
         .then(data =>{
-            console.log(data);
             if( country === "england-and-wales"){
-                setData(data["england-and-wales"].events);
+                setData(betweenRange(data["england-and-wales"].events, range));
             } else if( country === "northern-ireland"){
-                setData(data["northern-ireland"].events);
+                setData(betweenRange(data["northern-ireland"].events, range));
             } else if( country === "scotland"){
-                setData(data["scotland"].events);
+                setData(betweenRange(data["scotland"].events, range));
             } else {
                 setData([])
             }
@@ -27,6 +34,18 @@ export default function Main() {
         .catch(err =>{
             console.log("Error=>", err);
         })
+    }
+
+    const betweenRange = (data, range) =>{
+        if(show){
+            const start = range.startDate;
+            const end = range.endDate;
+
+            let arr = data.filter((e)=>new Date(e.date) >= start &&  new Date(e.date) <= end);
+
+            return arr;
+        }
+        return data;
     }
 
     return (
@@ -39,6 +58,9 @@ export default function Main() {
                     <option value = "northern-ireland">Northern Ireland</option>
                     <option value = "scotland">Scotland</option>
                 </select>
+                Filter Date Wise :
+                <button disabled={country===""} onClick={()=>setShow(!show)}>Custom</button>
+                <Calendar show={show} range={range} setRange={setRange} setShow={setShow} />
             </label>
             <Table data={data} />
         </div>

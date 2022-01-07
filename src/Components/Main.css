@@ -1,0 +1,45 @@
+/* Calender.jsx CSS*/
+.calender{
+    position: absolute;
+    top: 16%;
+    left: 50%;
+    z-index: 1;
+    border: 1px solid grey;
+}
+
+
+/* Maain.jsx CSS*/
+select{
+    margin: 10px 30px 10px 10px;
+}
+
+button {
+    margin-left: 10px;
+}
+
+/* Table.jsx CSS */
+
+.table{
+    margin: auto;
+    table-layout: auto;
+    border-collapse: collapse;
+}
+
+th{
+  background-color: #3d91ff;  
+  color: #fff;
+  width: 100px;
+}
+
+tr>th:nth-child(3){
+    width: 300px;
+}
+
+td, th {
+    border: 1px solid grey;
+    padding: 10px;
+}
+
+tr:nth-child(2n){
+    background-color: rgb(194, 193, 193)
+}
