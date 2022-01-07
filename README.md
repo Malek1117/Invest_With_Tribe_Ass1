@@ -6,7 +6,7 @@ A web app built with ReactJS. Here users can see all bank's holidays and filter 
 
 ## Deployed
 
-[Visit Live Site]()
+[Visit Live Site](https://bank-holidays-filter.netlify.app)
 
   
 ## Run Locally
