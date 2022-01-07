@@ -1,9 +1,11 @@
 import './App.css';
+import Main from "./Components/Main";
 
 function App() {
   return (
     <div className="App">
-      Welcome
+      <h1>Bank Holidays Filter App</h1>
+      <Main />
     </div>
   );
 }
